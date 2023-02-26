@@ -8,32 +8,18 @@ const ShoeGrid = () => {
   return (
     <Wrapper>
       {SHOES.map((shoe) => (
-        <ShoeWrapper key={shoe.slug}>
+        <div key={shoe.slug}>
           <ShoeCard {...shoe} />
-        </ShoeWrapper>
+        </div>
       ))}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(275px, 100%), 1fr));
   gap: 32px;
-  /*
-    Alternatively, if we can't use 'gap', we could set:
-
-    margin: -16px;
-
-    We'd also need to set this on the ShoeWrapper:
-
-    margin: 16px;
-  */
-`;
-
-const ShoeWrapper = styled.div`
-  min-width: 275px;
-  flex: 1;
 `;
 
 export default ShoeGrid;
