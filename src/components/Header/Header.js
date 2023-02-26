@@ -20,12 +20,42 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <LinkWrapper>
+            <NavLink href="/sale">
+              <MainText>Sale</MainText>
+              <HoverText>Sale</HoverText>
+            </NavLink>
+          </LinkWrapper>
+          <LinkWrapper>
+            <NavLink href="/new">
+              <MainText>New&nbsp;Releases</MainText>
+              <HoverText>New&nbsp;Releases</HoverText>
+            </NavLink>
+          </LinkWrapper>
+          <LinkWrapper>
+            <NavLink href="/men">
+              <MainText>Men</MainText>
+              <HoverText>Men</HoverText>
+            </NavLink>
+          </LinkWrapper>
+          <LinkWrapper>
+            <NavLink href="/women">
+              <MainText>Women</MainText>
+              <HoverText>Women</HoverText>
+            </NavLink>
+          </LinkWrapper>
+          <LinkWrapper>
+            <NavLink href="/kids">
+              <MainText>Kids</MainText>
+              <HoverText>Kids</HoverText>
+            </NavLink>
+          </LinkWrapper>
+          <LinkWrapper>
+            <NavLink href="/collections">
+              <MainText>Collections</MainText>
+              <HoverText>Collections</HoverText>
+            </NavLink>
+          </LinkWrapper>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -114,16 +144,48 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
+const LinkWrapper = styled.div`
+  --line-height: 1.5em;
   font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
+  line-height: var(--line-height);
+  max-height: var(--line-height);
   color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
+  overflow: hidden;
 
   &:first-of-type {
     color: var(--color-secondary);
   }
+`;
+
+const NavLink = styled.a`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    transform: translateY(0);
+    transition: transform 500ms;
+
+    ${LinkWrapper}:hover & {
+      transform: translateY(calc(var(--line-height) * -1));
+      transition: transform 250ms;
+    }
+  }
+`;
+
+const NavLinkText = styled.span`
+  display: block;
+`;
+
+const MainText = styled(NavLinkText)`
+  font-weight: ${WEIGHTS.medium};
+`;
+
+const HoverText = styled(NavLinkText)`
+  font-weight: ${WEIGHTS.bold};
 `;
 
 export default Header;
