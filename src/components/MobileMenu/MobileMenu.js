@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { WEIGHTS } from '../../constants';
 
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
@@ -12,6 +12,7 @@ import VisuallyHidden from '../VisuallyHidden';
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
     <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+      <Backdrop />
       <Content aria-label="Menu">
         <CloseButton onClick={onDismiss}>
           <Icon id="close" />
@@ -36,24 +37,61 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+`;
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
 `;
 
+const Backdrop = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-backdrop);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${fadeIn} 500ms both;
+  }
+`;
+
 const Content = styled(DialogContent)`
+  position: relative;
   background: white;
   width: 300px;
   height: 100%;
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${slideIn} 500ms ease-out both;
+  }
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -67,6 +105,11 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${fadeIn} 500ms both;
+    animation-delay: 400ms;
+  }
 `;
 
 const NavLink = styled.a`
@@ -84,12 +127,18 @@ const NavLink = styled.a`
 const Filler = styled.div`
   flex: 1;
 `;
+
 const Footer = styled.footer`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
   justify-content: flex-end;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${fadeIn} 500ms both;
+    animation-delay: 400ms;
+  }
 `;
 
 const SubLink = styled.a`
